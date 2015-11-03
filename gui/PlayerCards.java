@@ -2,14 +2,6 @@ package gui;
 
 import javax.swing.JPanel;
 
-import prototype.Card;
-
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
 public class PlayerCards extends JPanel {
 	private int ancho = 600, alto = 200; //Dimensiones del arreglo de cartas
 	private ArrayList<CardPanel> panelArr = new ArrayList<>();
