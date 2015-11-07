@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -29,10 +31,11 @@ public class TablePane extends JPanel {
 		
 		cardPanel = new CardPanel(new Card("Number", "RED", "4"));
 		cardPanel.setLocation(xcardCenter, ycardCenter);
+		cardPanel.addMouseListener(new CardListener());
 		add(cardPanel);		
 		
 		playerCards = new PlayerCards();
-		playerCards.setLocation(0, 450);
+		playerCards.setLocation(0, 500);
 		/*String parentClass = "class gui.Test";     //getParent().getClass().toString(); Borrar
 		if (parentClass.equalsIgnoreCase("class gui.Test")){
 			for(int i = 0; i < 4; i++){
@@ -110,6 +113,42 @@ public class TablePane extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			noifyThrown("RequestCard");
+			
+		}
+		
+	}
+	
+	private class CardListener implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {	
+			// TODO
+			
+		}
+		
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			arg0.getComponent().setBackground(Color.BLACK);
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			arg0.getComponent().setBackground(Color.RED);
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
 			
 		}
 		
