@@ -2,8 +2,17 @@ package gui;
 
 import javax.swing.JPanel;
 
+import prototype.Card;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 public class PlayerCards extends JPanel {
-	private int ancho = 600, alto = 200; //Dimensiones del arreglo de cartas
+	private int ancho = 800, alto = 300; //Dimensiones del arreglo de cartas
 	private ArrayList<CardPanel> panelArr = new ArrayList<>();
 	private CardListener listener = new CardListener();
 	private CardPanel cardInPlay;
@@ -13,7 +22,7 @@ public class PlayerCards extends JPanel {
 	public PlayerCards() {
 		setLayout(null);
 		setSize(ancho, alto);
-		setBackground(Color.DARK_GRAY); // solo para prueba
+		//setBackground(Color.DARK_GRAY); // solo para prueba
 	}
 	
 	public void addCard(Card card){
@@ -36,28 +45,32 @@ public class PlayerCards extends JPanel {
 	private void moveCards(){
 		int arrMid = panelArr.size()/2,
 			midPoint = ancho/2,
-			cardWidth = panelArr.get(0).getWidth(),
+			cardsGap,
 			leftPoint, rigthPoint, leftCard, rigthCard;
+			if(panelArr.size() > 5)
+				cardsGap = ancho / panelArr.size();
+			else 
+				cardsGap = panelArr.get(0).getWidth();
 		if ((panelArr.size() % 2) == 0){
-			leftPoint = midPoint - cardWidth;
+			leftPoint = midPoint - cardsGap;
 			leftCard = arrMid - 1;
 			rigthPoint = midPoint;
 			rigthCard = arrMid;
 		}
 		
 		else{
-			leftPoint = midPoint - (cardWidth/2)*3;
+			leftPoint = midPoint - (cardsGap/2)*3;
 			leftCard = arrMid - 1;
-			rigthPoint = midPoint + (cardWidth/2);
+			rigthPoint = midPoint + (cardsGap/2);
 			rigthCard = arrMid + 1;
-			panelArr.get(arrMid).setLocation(midPoint - (cardWidth/2), 0);
+			panelArr.get(arrMid).setLocation(midPoint - (cardsGap/2), 100);
 		}
 		
 		for (int l = leftCard, r = rigthCard; l >= 0; l--, r++){
-			panelArr.get(l).setLocation(leftPoint, 0);
-			panelArr.get(r).setLocation(rigthPoint, 0);
-			leftPoint -= cardWidth;
-			rigthPoint += cardWidth;
+			panelArr.get(l).setLocation(leftPoint, 100);
+			panelArr.get(r).setLocation(rigthPoint, 100);
+			leftPoint -= cardsGap;
+			rigthPoint += cardsGap;
 		}
 		validate();
 	}
@@ -118,15 +131,18 @@ public class PlayerCards extends JPanel {
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			//arg0.getComponent().setBackground(Color.BLACK);
-			
+			CardPanel hoverCard =(CardPanel)arg0.getComponent();
+			Rectangle bound = hoverCard.getBounds();
+			bound.y = bound.y - 100;
+			hoverCard.setBounds(bound);			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+			CardPanel hoverCard =(CardPanel)arg0.getComponent();
+			Rectangle bound = hoverCard.getBounds();
+			bound.y = bound.y + 100;
+			hoverCard.setBounds(bound);		
 		}
 
 		@Override
